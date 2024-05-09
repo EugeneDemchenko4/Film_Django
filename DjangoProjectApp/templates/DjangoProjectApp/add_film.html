@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'DjangoProjectApp/css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'DjangoProjectApp/css/add_film.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Film</title>
+</head>
+<script>
+    function goToPage(url) {
+        window.location.href = url;
+    }
+</script>
+<body class="login-body">
+    <div class="login-container">
+        <h1>Добавить Фильм</h1>
+        {% if request.user.is_superuser == False %}
+            <p>Вы не Администратор.</p>
+        {% else %}
+            <form method="POST" enctype="multipart/form-data" class="login-form">
+                {% csrf_token %}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            {% if message.tags %}
+                                <li class="{{ message.tags }}">{{ message }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div class="login-field">
+                    <label for="id_title">Название</label>
+                    {{ form.title }}
+                </div>
+                <div class="login-field">
+                    <label for="id_image">Превью</label>
+                    {{ form.image }}
+                </div>
+                <div class="login-field">
+                    <label for="id_year_created">Год выпуска</label>
+                    {{ form.year_created }}
+                </div>
+                <div class="login-field">
+                    <label for="id_genres">Жанры</label>
+                    {{ form.genres }}
+                </div>
+                <div class="login-field">
+                    <label for="id_description">Описание</label>
+                    {{ form.description }}
+                </div>
+                <div class="login-field">
+                    <input type="submit" value="Сохранить" class="login-button">
+                </div>
+            </form>
+        {% endif %}
+    </div>
+    <div class="sidebar-buttons">
+        <button onclick="goToPage('/')">Меню</button>
+        <button onclick="goToPage('/signup')">Регистрация</button>
+        <button onclick="goToPage('/login')">Вход</button>
+        <button onclick="goToPage('/profile')">Профиль</button>
+        {% if request.user.is_superuser == True %}
+        <button onclick="goToPage('/add_film')">Добавить фильм</button>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <button onclick="goToPage('/logout')">Выход</button>
+        {% endif %}
+    </div>
+</body>
+</html>

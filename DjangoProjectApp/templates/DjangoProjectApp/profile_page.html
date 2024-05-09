@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{% static 'DjangoProjectApp/css/main_page.css' %}">
+    <link rel="stylesheet" href="{% static 'DjangoProjectApp/css/profile_page.css' %}">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="profile-info">
+        {{ user.get_username }}
+    </div>
+    <div class="liked-movies">
+        <h1 style="color: rgb(249, 190, 183)">Лайкнутые фильмы</h1>
+        {% for film in liked_films %}
+        <div class="movie-item">
+            <div>
+                <button class="go-to-button" onclick="goToPage('/film/{{ film.slug }}')">Перейти</button>
+                <h2>{{ film.title }} ({{ film.year_created }})</h2>
+                {% for genre in film.genres.all|slice:":5" %}
+                    <span style="display: inline-block; background-color: #211b1f; color: #e8a3c4; padding: 3px 8px; margin-right: 5px; margin-bottom: 5px; border-radius: 5px;">{{ genre.name }}</span>
+                {% endfor %}
+                {% if film.genres.count > 5 %}
+                    <span style="display: inline-block; background-color: #211b1f; color: #e8a3c4; padding: 3px 8px; margin-right: 5px; margin-bottom: 5px; border-radius: 5px;">...</span>
+                {% endif %}
+            </div>
+            <img src="{{ film.image.url }}" alt="IMG_ERROR" height="200">
+            <button class="like-button {% if film in request.user.likes_lst.all %}liked{% else %}not-liked{% endif %}" data-film-id="{{ film.id }}">
+                <img src="/static/DjangoProjectApp/img/{% if film in request.user.likes_lst.all %}Filled{% else %}Empty{% endif %}-heart.png" alt="Лайк">
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="sidebar-buttons">
+    <button onclick="goToPage('/')">Меню</button>
+    <button onclick="goToPage('/signup')">Регистрация</button>
+    <button onclick="goToPage('/login')">Вход</button>
+    <button onclick="goToPage('/profile')">Профиль</button>
+    {% if request.user.is_superuser == True %}
+    <button onclick="goToPage('/add_film')">Добавить фильм</button>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+    <button onclick="goToPage('/logout')">Выход</button>
+    {% endif %}
+</div>
+<script>
+    function goToPage(url) {
+        window.location.href = url;
+    }
+</script>
+<script>
+    $(document).ready(function() {
+        $('.like-button').on('click', function() {
+            var film_id = $(this).data('film-id');
+            var csrf_token = '{{ csrf_token }}';
+
+            $.ajax({
+                url: '/like_film/',
+                method: 'POST',
+                data: {
+                    'film_id': film_id,
+                    'csrfmiddlewaretoken': csrf_token
+                },
+                success: function(response) {
+                    if (response.status === 'ok') {
+                        // Обновляем состояние кнопки или что-то еще
+                    }
+                },
+                error: function() {
+                    alert('Произошла ошибка при отправке запроса.');
+                }
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+const likeButtons = document.querySelectorAll('.like-button');
+
+likeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const filmId = this.getAttribute('data-film-id');
+        const isLiked = this.classList.contains('liked');
+
+        // Здесь можно отправить AJAX-запрос для лайка/анлайка фильма
+        // В этом примере просто переключаем классы и меняем состояние сердечка
+        if (isLiked) {
+            this.classList.remove('liked');
+            this.classList.add('not-liked');
+            this.querySelector('img').src = "{% static 'DjangoProjectApp\img\Empty-heart.png' %}";
+        } else {
+            this.classList.remove('not-liked');
+            this.classList.add('liked');
+            this.querySelector('img').src = "{% static 'DjangoProjectApp\img\Filled-heart.png' %}";
+        }
+    });
+});
+});
+</script>
+</html>

@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ film.title }}</title>
+    <link rel="stylesheet" href="{% static 'DjangoProjectApp/css/main_page.css' %}">
+    <link rel="stylesheet" href="{% static 'DjangoProjectApp/css/film_detail.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="movie-details">
+            {% if request.user.is_superuser %}
+            <button class="delete-button" onclick="goToPage('delete')">Удалить</button>
+            {% endif %}
+            <h1 class="movie-title">{{ film.title }}</h1>
+            <p class="movie-year">{{ film.year_created }}</p>
+            <div class="genres">
+                <h2>Жанры:</h2>
+                <ul>
+                    {% for genre in film.genres.all %}
+                        <li>{{ genre.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="description">
+                <h2>Описание:</h2>
+                <p>{{ film.description }}</p>
+            </div>
+            <div class="image">
+                <img src="{{ film.image.url }}" alt="{{ film.title }}">
+            </div>
+        </div>
+        <div class="sidebar-buttons">
+            <button onclick="goToPage('/')">Меню</button>
+            <button onclick="goToPage('/signup')">Регистрация</button>
+            <button onclick="goToPage('/login')">Вход</button>
+            <button onclick="goToPage('/profile')">Профиль</button>
+            <button onclick="goToPage('/add_film')">Добавить фильм</button>
+        </div>
+    </div>
+
+    <script>
+        function goToPage(url) {
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

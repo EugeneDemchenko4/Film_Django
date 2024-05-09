@@ -1,0 +1,155 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #654354;
+    color: #333;
+    position: relative;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #b17292;
+    box-shadow: 0 0 15px #ffb4f0;
+    border-radius: 12px;
+}
+.filters {
+    flex: 0 0 35%;
+    padding-right: 35px;
+    margin-right: 20px;
+    background-color: #ffa7c5;
+    border-radius: 12px;
+    border: 3px solid #ffc78b;
+}
+.genres-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+}
+
+.genre-item {
+    flex: 0 0 calc(33.333% - 20px); 
+    box-sizing: border-box; 
+}
+
+.genre-item input[type="checkbox"] {
+    margin-right: 10px; 
+}
+.movies {
+    flex: 0 0 60%;
+}
+.genres-margin-left {
+    margin-left: 35px;
+}
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #8b31e9;
+}
+form {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+}
+input[type="checkbox"] {
+    margin-right: 5px;
+    background-color: #e6faff;
+    border-radius: 12px;
+}
+.movie-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: #ffcf9c;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.movie-item img {
+    margin-left: 20px;
+    border-radius: 12px;
+}
+
+.sidebar-buttons {
+    position: fixed; 
+    top: 50%; 
+    right: 60px; 
+    transform: translateY(-50%); 
+    display: flex;
+    flex-direction: column;
+    gap: 20px; 
+    z-index: 1000; 
+}
+
+.sidebar-buttons button {
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(138, 49, 233, 0.35);
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination a,
+.pagination span {
+    margin: 0 5px;
+    padding: 8px 12px;
+    border: 1px solid #8b31e9;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #8b31e9;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #8b31e9;
+    color: #fff;
+}
+
+.like-button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.like-button img {
+    width: 50px; 
+    height: 50px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.like-button:hover {
+    transform: scale(1.2);
+}
+.go-to-button {
+    background-color: #8b31e9;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.go-to-button:hover {
+    background-color: #6a1c9a;
+}

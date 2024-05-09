@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<script>
+    function goToPage(url) {
+        window.location.href = url;
+    }
+</script>
+<style>
+    /* Стили, которые вы уже использовали для страницы регистрации */
+    
+</style>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'DjangoProjectApp/css/main_page.css' %}" />
+    <link rel="stylesheet" href="{% static 'DjangoProjectApp/css/login.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+
+<body class="login-body">
+    <div class="login-container">
+        <h1>Вход</h1>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            <div class="login-field">
+                <label for="id_username">{{ form.username.label }}</label>
+                {{ form.username }}
+            </div>
+            <div class="login-field">
+                <label for="id_password">{{ form.password.label }}</label>
+                {{ form.password }}
+            </div>
+            <div class="login-field">
+                <input type="submit" value="Войти" class="login-button">
+            </div>
+            <div class="login-errors">
+                {{ form.errors }}
+            </div>
+        </form>
+    </div>
+    <div class="sidebar-buttons">
+        <button onclick="goToPage('/')">Меню</button>
+        <button onclick="goToPage('/signup')">Регистрация</button>
+        <button onclick="goToPage('/login')">Вход</button>
+        <button onclick="goToPage('/profile')">Профиль</button>
+        {% if request.user.is_superuser == True %}
+        <button onclick="goToPage('/add_film')">Добавить фильм</button>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <button onclick="goToPage('/logout')">Выход</button>
+        {% endif %}
+    </div>
+</body>
+
+</html>

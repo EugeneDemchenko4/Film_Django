@@ -1,0 +1,96 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.delete-button {
+    position: absolute;
+    top: 10px;
+    right: 335px;
+    background-color: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.movie-title {
+    font-size: 36px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.movie-year {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.genres {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.genres ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.genres li {
+    background-color: #211b1f;
+    color: #e8a3c4;
+    padding: 3px 8px;
+    border-radius: 3px;
+}
+
+.image img {
+    max-width: 1100px;
+    height: auto;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 12px;
+}
+.genres ul {
+display: flex;
+flex-wrap: wrap;
+list-style-type: none;
+padding: 0;
+}
+.genres li {
+flex: 1 0 14.28%;
+margin: 5px;
+text-align: center;
+background-color: #211b1f;
+color: #e8a3c4;
+padding: 8px;
+border-radius: 5px;
+}
+.description {
+margin-top: 30px;
+font-family: Arial, sans-serif;
+background-color: #ffbdf3;
+border-radius: 8px;
+padding: 20px;
+box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+text-align: center;
+}   
+.description h2 {
+font-size: 36px;
+font-weight: bold;
+color: #333;
+border-bottom: 2px solid #8f8bcf;
+padding-bottom: 10px;
+margin-bottom: 20px;
+}
+
+.description p {
+font-size: 24px;
+font-weight: bold;
+color: #555;
+line-height: 1.6;
+}
